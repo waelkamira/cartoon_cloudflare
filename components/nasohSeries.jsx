@@ -78,6 +78,14 @@ export default function NasohSeries({ vertical = false }) {
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
       {/* <HappyTagAd /> */}
+      <div className="relative h-44 w-full sm:h-72 sm:w-96">
+        <Image
+          src={'https://i.imgur.com/u6grI22.png'}
+          layout="fill"
+          objectFit="cover"
+          alt={'نصوح'}
+        />{' '}
+      </div>
       <h1 className="w-full text-start p-2 text-white">عائلة نصوح</h1>
       <div
         ref={nasohSliderRef}

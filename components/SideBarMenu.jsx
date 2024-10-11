@@ -20,7 +20,7 @@ export default function SideBarMenu({ setIsOpen }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
-          <div className="flex justify-center items-center w-full cursor-pointer line-clamp-2 bg-one p-4">
+          <div className="flex justify-center items-center w-full cursor-pointer line-clamp-2 bg-one">
             <div className="relative size-20 ml-4">
               <Image
                 priority
@@ -88,6 +88,26 @@ export default function SideBarMenu({ setIsOpen }) {
             planetName={'كوكب بون بونة'}
             planetImage={'https://i.imgur.com/DnKrRt2.png'}
             planetRoute={'/bonbonaPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'كرتون لغة انجليزية'}
+            planetImage={'https://i.imgur.com/bw6ZZCJ.png'}
+            planetRoute={'/englishCartoonPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال لغة انجليزية'}
+            planetImage={'https://i.imgur.com/3PEEhLC.png'}
+            planetRoute={'/englishSongsPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'كرتون لغة تركية'}
+            planetImage={'https://i.imgur.com/gfdEgLt.png'}
+            planetRoute={'/turkishCartoonPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال لغة تركية'}
+            planetImage={'https://i.imgur.com/GTuV1My.png'}
+            planetRoute={'/turkishSongsPlanet'}
           />
           {/* {session?.status === 'unauthenticated' && (
         <div>

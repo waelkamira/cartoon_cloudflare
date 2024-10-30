@@ -27,6 +27,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className="!scroll-smooth" dir="rtl">
       <head>
         <meta
+          name="c86396620c9384a54c06a6ddc6a9645ac88ed94b"
+          content="c86396620c9384a54c06a6ddc6a9645ac88ed94b"
+        />
+        <meta
           name="juicyads-site-verification"
           content="d664049d6381fcb9b73e29f6b38da992"
         ></meta>

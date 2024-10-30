@@ -4,9 +4,9 @@ import { Rubik } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
-import HappyTagAd from '../components/ads/happyTagAd';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
+import RandomizeDomain from '../components/RandomizeDomain';
 
 const inter = Inter({ subsets: ['latin'] });
 const rubik = Rubik({
@@ -26,6 +26,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="!scroll-smooth" dir="rtl">
       <head>
+        <meta
+          name="juicyads-site-verification"
+          content="d664049d6381fcb9b73e29f6b38da992"
+        ></meta>
+        <link rel="manifest" href="/manifest.json" />
         {/* إضافة كود Google Tag Manager */}
         <Script
           id="gtm-script"
@@ -40,7 +45,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        {/* <HappyTagAd /> */}
+        {/* <RandomizeDomain /> */}
         <BackButton />
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>

@@ -240,7 +240,7 @@ export default function SeriesAndEpisodes() {
                 <AdsterraNativeBanner />
                 <AdsterraBanner468x60 />
                 <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} />
-                <HillTopAdsMultiTagBanner render={episode?.episodeLink} /> */}
+                <HillTopAdsMultiTagBanner render={episode?.episodeLink} />
                 <JuicyAdsAd />
                 <JuicyAdsAdVideo />
                 <JuicyAdsImage />

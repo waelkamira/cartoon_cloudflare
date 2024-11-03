@@ -138,6 +138,26 @@ iframe {
   background-position: center; /* لتمركز الصورة في الوسط */
 }
 
+.ad-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .ad-container {
+    padding: 5px;
+  }
+
+  .adsbyexoclick {
+    width: 100%;
+    height: auto;
+  }
+}
+
 #ad-container {
   position: relative; /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
   margin: 20px auto; /* لضمان أن يظهر في وسط الصفحة */
@@ -282,4 +302,27 @@ iframe[allowtransparency='true'][scrolling='no'][frameborder='0'][framespacing='
 
 iframe[sandbox*='allow-scripts'][frameborder='0'][scrolling='no'] {
   opacity: 1; /* جعل الشفافية 50% */
+}
+
+iframe[data-ad-zone='1071478'] {
+  opacity: 1; /* ضبط الشفافية إلى 50% */
+}
+
+iframe {
+  width: 300px;
+  height: 100px;
+  opacity: 1; /* تعيين الشفافية إلى 50% */
+}
+iframe {
+  width: 300px;
+  height: 250px;
+  opacity: 1; /* تعيين الشفافية إلى 50% */
+}
+
+iframe {
+  opacity: 1 !important; /* تطبيق الشفافية بنسبة 50% */
+  width: 100% !important; /* عرض الإطار بكامل العرض */
+}
+.transparent-iframe {
+  opacity: 1 !important; /* تطبيق الشفافية بنسبة 50% */
 }

@@ -39,6 +39,7 @@
     "papaparse": "^5.4.1",
     "path-browserify": "^1.0.1",
     "puppeteer": "^23.9.0",
+    "querystring": "^0.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.5",

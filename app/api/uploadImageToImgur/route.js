@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import imgurClientManager from '../../../components/ImgurClientManager';
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 const cache = {
   data: new Map(), // لتخزين الصور مع روابطها

@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from 'uuid'; // استيراد مكتبة uuid
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 // إعداد Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL1,

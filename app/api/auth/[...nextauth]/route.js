@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth/next';
 import { authOptions } from '../../authOptions/route';
-export const runtime = 'nodejs'; // استخدم Node.js بدلاً من Edge
+
+export const runtime = 'edge';
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

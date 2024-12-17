@@ -11,7 +11,11 @@ export default async function handler(req, res) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+        redirectTo: `${
+          process.env.NODE_ENV === 'development'
+            ? process.env.NEXT_PUBLIC_BASE_URL
+            : process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
+        }/auth/callback`,
       },
     });
 

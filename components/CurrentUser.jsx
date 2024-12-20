@@ -1,13 +1,14 @@
+'use client';
 import { useContext, useEffect, useState } from 'react';
 import { inputsContext } from './Context';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 
 export default function CurrentUser() {
   const { profile_image, rerender } = useContext(inputsContext);
 
   const [user, setUser] = useState();
-  const { data: session, status } = useSession();
-  // console.log('profile_image?.image', profile_image?.image);
+  const { data: session, status } = useAuth();
+  console.log('session', session);
 
   useEffect(() => {
     if (status === 'authenticated') {

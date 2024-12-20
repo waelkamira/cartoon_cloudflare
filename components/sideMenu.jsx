@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useAuth } from '../components/authContext/AuthContext';
 import SideBarMenu from './SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import CategoriesSlides from './CategoriesSlides';
@@ -26,14 +26,14 @@ export default function SideMenu() {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [active, setActive] = useState(false);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   const [open, setOpen] = useState(true);
   return (
     <div>
       {' '}
       <div className="absolute w-full z-50">
-        {/* {open && session?.status === 'unauthenticated' && (
+        {/* {open && session?.session?.user?.role === 'unauthenticated' && (
           <div
             className="fixed right-0 h-screen w-full z-40"
             onClick={() => setOpen(true)}

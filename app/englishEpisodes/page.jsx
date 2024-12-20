@@ -8,7 +8,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
   const [episodeName, setEpisodeName] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isTrue, setIsTrue] = useState(true);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function Page() {
   return (
     <>
       {' '}
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
       <div className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px] overflow-y-auto">

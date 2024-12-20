@@ -1,7 +1,7 @@
 'use client';
 import CurrentUser from '../../components/CurrentUser';
 import Button from '../../components/Button';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useAuth } from '../../components/authContext/AuthContext';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import { inputsContext } from '../../components/Context';
@@ -15,7 +15,7 @@ import { GrContactInfo } from 'react-icons/gr';
 import LoadingPhoto from '../../components/LoadingPhoto';
 
 export default function Profile() {
-  const session = useSession();
+  const session = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
   const { profile_image, dispatch } = useContext(inputsContext);
@@ -61,10 +61,10 @@ export default function Profile() {
       }
     }
   }
-
+  console.log('session', session?.session?.user);
   return (
     <div className="flex flex-col h-screen justify-center items-center text-md">
-      {session?.status === 'unauthenticated' && (
+      {session?.session?.user?.role === 'unauthenticated' && (
         <div className="p-4 bg-four rounded-lg m-2 md:m-8 border border-one text-center h-screen">
           <h1 className=" md:text-2xl p-2 my-8 text-white">
             يجب عليك تسجيل الدخول أولا لرؤية هذا البروفايل
@@ -74,7 +74,7 @@ export default function Profile() {
           </div>
         </div>
       )}
-      {session?.status === 'authenticated' && (
+      {session?.session?.user?.role === 'authenticated' && (
         <div className="relative grow bg-one text-white flex justify-center items-center w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl sm:mt-24">
           <div className="flex flex-col items-start gap-4  justify-start w-full 2xl:w-2/3 h-full rounded-lg overflow-hidden">
             <div className="flex justify-center items-center w-full size-44 bg-one my-4">
@@ -82,7 +82,7 @@ export default function Profile() {
                 {user?.image ? (
                   <Image
                     loading="lazy"
-                    src={session?.data?.user?.image}
+                    src={session?.session?.user?.user_metadata?.picture}
                     fill
                     alt={'photo'}
                     className="rounded-full"
@@ -152,7 +152,7 @@ export default function Profile() {
                 </div>
               </div>
               <div className="p-4 w-full ">
-                {session?.status === 'authenticated' && (
+                {session?.session?.user?.role === 'authenticated' && (
                   <>
                     <Button
                       title={'تسجيل الخروج'}

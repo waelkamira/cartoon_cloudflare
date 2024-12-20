@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { inputsContext } from './Context';
 import { FaUber } from 'react-icons/fa6';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import CurrentUser from './CurrentUser';
 import LoadingPhoto from './LoadingPhoto';
 
@@ -24,7 +24,7 @@ export default function SearchBar() {
   const [searchTriggered, setSearchTriggered] = useState(false);
   const [seriesImages, setSeriesImages] = useState({}); // تخزين صور المسلسلات
   const router = useRouter();
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
 
   // Function to perform search
@@ -156,7 +156,7 @@ export default function SearchBar() {
 
                 return (
                   <>
-                    {session?.status === 'authenticated' &&
+                    {session?.session?.user?.role === 'authenticated' &&
                       user?.isAdmin === '1' && (
                         <button
                           className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"

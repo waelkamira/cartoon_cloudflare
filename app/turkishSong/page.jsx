@@ -9,14 +9,14 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import TurkishSongs from '../../components/turkishKidsSongs';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [song, setSong] = useState([]);
-  const session = useSession();
+  const session = useAuth();
   const [songName, setSongName] = useState('');
   const user = CurrentUser();
 
@@ -53,7 +53,7 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
       <div className="bg-one">

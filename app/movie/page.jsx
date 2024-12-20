@@ -9,7 +9,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 
@@ -20,7 +20,7 @@ export default function Page() {
   const [movieName, setMovieName] = useState('');
   const [showMessage, setShowMessage] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 

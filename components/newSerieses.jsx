@@ -7,7 +7,7 @@ import { inputsContext } from './Context';
 import Image from 'next/image';
 import Loading from './Loading';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import SubscriptionPage from './paypal/subscriptionPage';
 import CurrentUser from './CurrentUser';
 
@@ -17,7 +17,7 @@ export default function NewSerieses() {
   const { newSeries, deletedSeries } = useContext(inputsContext);
   const router = useRouter();
   const [showMessage, setShowMessage] = useState(true);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   // console.log('serieses', serieses);
   const [seriesesSliderRef, seriesesInstanceRef] = useKeenSlider({
@@ -86,7 +86,7 @@ export default function NewSerieses() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 

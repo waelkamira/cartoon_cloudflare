@@ -12,7 +12,7 @@ import SideBarMenu from './SideBarMenu';
 import CustomToast from './CustomToast';
 import toast from 'react-hot-toast';
 import CurrentUser from './CurrentUser';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function TurkishCartoon({ image }) {
@@ -22,7 +22,7 @@ export default function TurkishCartoon({ image }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
-  const session = useSession();
+  const session = useAuth();
   const [showMessage, setShowMessage] = useState(true);
   const [previousPath, setPreviousPath] = useState('');
   const [vertical, setVertical] = useState(false);
@@ -205,14 +205,15 @@ export default function TurkishCartoon({ image }) {
               key={episode?.id}
               className="keen-slider__slide snap-center flex flex-col items-center my-4"
             >
-              {session?.status === 'authenticated' && user?.isAdmin === '1' && (
-                <button
-                  className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
-                  onClick={() => handleAdd(episode?.id)}
-                >
-                  إضافة
-                </button>
-              )}
+              {session?.session?.user?.role === 'authenticated' &&
+                user?.isAdmin === '1' && (
+                  <button
+                    className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
+                    onClick={() => handleAdd(episode?.id)}
+                  >
+                    إضافة
+                  </button>
+                )}
               <div
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
                 key={episode?.id}

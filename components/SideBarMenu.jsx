@@ -1,5 +1,5 @@
 'use client';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useAuth } from '../components/authContext/AuthContext';
 import React from 'react';
 import CurrentUser from '../components/CurrentUser';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import ItemForSideBarMenu from './itemForSideBarMenu';
 import { FaRegCreditCard } from 'react-icons/fa';
 
 export default function SideBarMenu({ setIsOpen }) {
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   return (
     <div
@@ -98,7 +98,7 @@ export default function SideBarMenu({ setIsOpen }) {
             planetRoute={'/turkishSongsPlanet'}
           />
 
-          {session?.status === 'unauthenticated' ? (
+          {session?.session?.user?.role === 'unauthenticated' ? (
             <Button title={'تسجيل الدخول'} path={'/login'} />
           ) : (
             <Button title={'بروفايل'} path={'/profile'} />

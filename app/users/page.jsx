@@ -1,5 +1,5 @@
 'use client';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import React, { useEffect, useState } from 'react';
 import CurrentUser from '../../components/CurrentUser';
 import { IoMdClose, IoIosSearch } from 'react-icons/io';
@@ -21,12 +21,12 @@ export default function Users() {
   const [users, setUsers] = useState([]);
   const [findUser, setFindUser] = useState('');
   const admin = CurrentUser();
-  const session = useSession();
+  const session = useAuth();
 
   useEffect(() => {
     fetchAllUsers();
   }, []);
-  if (!session?.status === 'authenticated' || !admin?.isAdmin) {
+  if (!session?.session?.user?.role === 'authenticated' || !admin?.isAdmin) {
     return null;
   }
 

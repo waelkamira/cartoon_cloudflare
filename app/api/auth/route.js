@@ -1,74 +1,67 @@
 import { supabase } from '../../../lib/supabase';
-import { v4 as uuidv4 } from 'uuid';
-export const runtime = 'edge';
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+import cookie from 'cookie';
 
+export async function POST(req) {
   try {
-    // تسجيل الدخول عبر Google OAuth
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${
-          process.env.NODE_ENV === 'development'
-            ? process.env.NEXT_PUBLIC_BASE_URL
-            : process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
-        }/auth/callback`,
-      },
-    });
+    const body = await req.json();
+    const { email, name, avatar } = body;
 
-    if (error) {
-      throw new Error(error.message);
+    if (!email) {
+      return new Response(JSON.stringify({ error: 'Email is required' }), {
+        status: 400,
+      });
     }
 
-    const { user } = data;
-
-    // جلب بيانات المستخدم من Supabase
-    const { data: existingUser, error: existingUserError } = await supabase
+    let { data: user, error } = await supabase
       .from('User')
       .select('*')
-      .eq('email', user.email)
+      .eq('email', email)
       .single();
+    console.log('user **********************************************', user);
+    if (!user) {
+      const { data: newUser, error: createError } = await supabase
+        .from('User')
+        .insert([
+          {
+            email,
+            name: name || 'User',
+            image: avatar || null,
+          },
+        ])
+        .select()
+        .single();
 
-    if (existingUserError && existingUserError.code !== 'PGRST116') {
-      throw new Error(existingUserError.message);
+      if (createError) {
+        return new Response(
+          JSON.stringify({ error: 'Error creating user in the database' }),
+          { status: 500 }
+        );
+      }
+
+      user = newUser;
+      console.log('user ********************************************', user);
     }
 
-    // إذا لم يكن المستخدم موجودًا، نقوم بإضافته
-    if (!existingUser) {
-      const newId = uuidv4();
+    const headers = new Headers();
+    headers.append(
+      'Set-Cookie',
+      cookie.serialize('user', JSON.stringify(user), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 365,
+        path: '/',
+      })
+    );
 
-      const { error: insertError } = await supabase.from('User').insert({
-        id: newId, // إضافة ID جديد
-        email: user.email,
-        name: user.user_metadata.full_name,
-        image: user.user_metadata.avatar_url,
-        googleId: user.id,
-      });
-
-      if (insertError) {
-        throw new Error(insertError.message);
-      }
-    } else {
-      // تحديث googleId إذا كان مفقودًا
-      if (!existingUser.googleId) {
-        const { error: updateError } = await supabase
-          .from('User')
-          .update({ googleId: user.id })
-          .eq('email', user.email);
-
-        if (updateError) {
-          throw new Error(updateError.message);
-        }
-      }
-    }
-
-    return res
-      .status(200)
-      .json({ message: 'User signed in successfully', user });
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
+    return new Response(JSON.stringify(user), {
+      status: 200,
+      headers,
+    });
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: 'Unexpected error occurred' }),
+      { status: 500 }
+    );
   }
 }

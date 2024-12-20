@@ -15,7 +15,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../../components/authContext/AuthContext';
 import CurrentUser from '../../components/CurrentUser';
 import { inputsContext } from '../../components/Context';
 import SubscribedOrNot from '../../components/paypal/subscribedOrNot';
@@ -30,7 +30,7 @@ export default function SeriesAndEpisodes() {
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
   const [showMessage, setShowMessage] = useState(true);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   const { dispatch } = useContext(inputsContext);
 
@@ -131,7 +131,7 @@ export default function SeriesAndEpisodes() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
       <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto mt-20">

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useAuth } from '../components/authContext/AuthContext';
 import SideBarMenu from './SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import CategoriesSlides from './CategoriesSlides';
@@ -26,7 +26,7 @@ export default function HomePage() {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [active, setActive] = useState(false);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   const [open, setOpen] = useState(false);
   const { dispatch } = useContext(inputsContext);
@@ -41,10 +41,10 @@ export default function HomePage() {
   return (
     <>
       {user &&
-        session?.status === 'authenticated' &&
+        session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}{' '}
-      {session?.status === 'unauthenticated' && (
+      {session?.session?.user?.role === 'unauthenticated' && (
         <div
           className="absolute right-0 top-0 h-full w-full z-50"
           onClick={() => setOpen(true)}
@@ -109,7 +109,7 @@ export default function HomePage() {
               isSpacetoonOpen={isSpacetoonOpen}
             />
 
-            {session?.status === 'unauthenticated' && (
+            {session?.session?.user?.role === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
             )}
           </div>

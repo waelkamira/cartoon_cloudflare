@@ -9,7 +9,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import SpacetoonSongs from '../../components/spacetoonSongs';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 
@@ -17,7 +17,7 @@ export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
   const [spacetoonSongId, setSpacetoonSongId] = useState('');
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 

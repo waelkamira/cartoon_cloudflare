@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import CurrentUser from '../CurrentUser';
 import Image from 'next/image';
 import { TbArrowBigLeftLinesFilled } from 'react-icons/tb';
@@ -36,7 +36,7 @@ export const plans = [
 ];
 
 const Pricing = () => {
-  const { data: session } = useSession();
+  const { data: session } = useAuth();
   const [plan, setPlan] = useState(plans[0]);
   const user = CurrentUser();
 

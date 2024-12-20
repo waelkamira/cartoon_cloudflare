@@ -7,7 +7,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import TurkishCartoon from '../../components/turkishCartoon';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 
@@ -17,7 +17,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [episodeName, setEpisodeName] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const session = useSession();
+  const session = useAuth();
   const user = CurrentUser();
 
   // استخدام URL parameters لجلب اسم الحلقة
@@ -63,7 +63,7 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' &&
+      {session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 

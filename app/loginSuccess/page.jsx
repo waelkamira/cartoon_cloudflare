@@ -1,43 +1,31 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import Image from 'next/image';
-
-export default function Login() {
-  const router = useRouter();
+import Link from 'next/link';
+export default function LoginSuccess() {
+  useEffect(() => {
+    handleGoogleLogin();
+  }, []);
 
   const handleGoogleLogin = async () => {
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `http://localhost:3000/loginSuccess`,
-        },
-      });
-      console.log('data **********************************************', data);
-
-      if (error) {
-        console.error('Error logging in:', error.message);
-        return;
-      }
-
       // انتظر حتى يتم تسجيل المستخدم وإحضار الجلسة
       const { data: sessionData, error: sessionError } =
         await supabase.auth.getSession();
+      console.log('sessionData ', sessionData?.session?.user?.role);
+
       if (sessionError) {
         console.error('Error fetching session:', sessionError.message);
         return;
       }
 
       const user = sessionData?.session?.user;
-      console.log('user **********************************************', user);
+      console.log('user ', user);
 
       // تحقق إذا كانت بيانات المستخدم موجودة
       if (user) {
-        console.log(
-          'user **********************************************',
-          user
-        );
+        console.log('user ', user);
 
         // أرسل طلبًا إلى api/auth
         const response = await fetch('/api/auth', {
@@ -68,27 +56,15 @@ export default function Login() {
       console.error('Unexpected error during login:', error);
     }
   };
-
   return (
     <div className="flex justify-center w-full">
       <div className="text-white mt-52">
-        <h1>تسجيل الدخول</h1>
-        <div
-          className="flex justify-center w-full bg-white rounded-md px-4 py-2 gap-2 items-center my-8 hover:shadow-md cursor-pointer hover:scale-110"
-          onClick={handleGoogleLogin}
-        >
-          <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
-            تسجيل الدخول عن طريق جوجل
-          </h1>
-          <div className="relative h-8 w-8 ">
-            <Image
-              loading="lazy"
-              src={'https://i.imgur.com/Z4ts3yl.png'}
-              alt="google image"
-              layout="fill"
-              objectFit="contain"
-            />
-          </div>
+        <div className="flex justify-center w-full bg-white rounded-md px-4 py-2 gap-2 items-center my-8 hover:shadow-md cursor-pointer hover:scale-110">
+          <Link href={'/'}>
+            <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
+              تم تسجيل الدخول بنجاح سوف يتم تحويلك تلقائيا الى الصفحة الرئيسية
+            </h1>
+          </Link>
         </div>
       </div>
     </div>

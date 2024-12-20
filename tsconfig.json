@@ -25,7 +25,8 @@
     "**/*.ts",
     "**/*.tsx",
     "build/types/**/*.ts",
-    "app/api/authOptions/route.js"
+    "app/api/authOptions/route.js",
+    "app/login/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

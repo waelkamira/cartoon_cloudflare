@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn, useAuth } from '../components/authContext/AuthContext';
+import { signIn, useAuth } from '../../components/authContext/AuthContext';
 import CustomToast from '../../components/CustomToast';
 import { useEffect } from 'react';
 import { TbDoorEnter } from 'react-icons/tb';

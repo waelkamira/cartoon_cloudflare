@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth, signIn } from '../components/authContext/AuthContext';
+import { useAuth, signIn } from '../../components/authContext/AuthContext';
 
 // Customer portal link
 const customerPortalLink = 'https://buy.stripe.com/test_3cs00Y2SS1No9zybII';

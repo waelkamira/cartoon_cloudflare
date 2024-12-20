@@ -10,7 +10,7 @@ import Songs from '../../components/kidsSongs';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {

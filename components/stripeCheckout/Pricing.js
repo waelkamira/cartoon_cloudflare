@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import CurrentUser from '../CurrentUser';
 import Image from 'next/image';
 import { TbArrowBigLeftLinesFilled } from 'react-icons/tb';

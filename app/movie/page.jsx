@@ -9,7 +9,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 

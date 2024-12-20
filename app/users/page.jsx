@@ -1,5 +1,5 @@
 'use client';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import React, { useEffect, useState } from 'react';
 import CurrentUser from '../../components/CurrentUser';
 import { IoMdClose, IoIosSearch } from 'react-icons/io';

@@ -9,7 +9,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import SpacetoonSongs from '../../components/spacetoonSongs';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 

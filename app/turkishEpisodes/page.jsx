@@ -7,7 +7,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import TurkishCartoon from '../../components/turkishCartoon';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 

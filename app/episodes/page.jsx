@@ -8,7 +8,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { inputsContext } from '../../components/Context';
-import { useAuth } from '../components/authContext/AuthContext';
+import { useAuth } from '../../components/authContext/AuthContext';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
 import { ContactUs } from '../../components/sendEmail/sendEmail';

@@ -21,16 +21,30 @@ export const AuthProvider = ({ children }) => {
       setSession(session);
     });
 
-    // تأكد من التحقق من وجود subscription قبل محاولة إلغاء الاشتراك
+    console.log('data **********************************************', data);
+
     return () => {
       if (data?.subscription) {
         data.subscription.unsubscribe();
       }
     };
   }, []);
-  console.log('session from Auth', session);
+
+  // وظيفة تسجيل الخروج
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out:', error);
+    } else {
+      setSession(null); // حذف الجلسة بعد تسجيل الخروج
+      console.log('User signed out and session cleared.');
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ session, signOut }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

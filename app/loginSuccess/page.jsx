@@ -46,11 +46,6 @@ export default function LoginSuccess() {
           console.error('Error sending user data:', errorResponse.message);
           return;
         }
-
-        console.log('User data sent successfully to /api/auth');
-
-        // إعادة توجيه المستخدم إلى الصفحة الرئيسية
-        router.push('/');
       }
     } catch (error) {
       console.error('Unexpected error during login:', error);

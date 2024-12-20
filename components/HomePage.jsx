@@ -14,10 +14,8 @@ import EpisodForm from './createEpisode';
 import MovieForm from './createMovie';
 import SongForm from './createSong';
 import SpacetoonSongForm from './createSpacetoonSong';
-import SharePrompt from './SharePromptOnWhatsup';
 import LoginMessage from './loginMessage';
 import SubscriptionPage from './paypal/subscriptionPage';
-import { inputsContext } from './Context';
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,11 +26,10 @@ export default function HomePage() {
   const [active, setActive] = useState(false);
   const session = useAuth();
   const user = CurrentUser();
-  const [open, setOpen] = useState(false);
-  const { dispatch } = useContext(inputsContext);
+  const [open, setOpen] = useState(true);
 
   // console.log('user', user);
-  // console.log('session', session);
+  console.log('session homepage', session);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
     localStorage.removeItem('episodeNumber');
@@ -44,7 +41,7 @@ export default function HomePage() {
         session?.session?.user?.role === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}{' '}
-      {session?.session?.user?.role === 'unauthenticated' && (
+      {session?.session === null && (
         <div
           className="absolute right-0 top-0 h-full w-full z-50"
           onClick={() => setOpen(true)}
@@ -54,26 +51,6 @@ export default function HomePage() {
       )}
       <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
         <div className=" w-full ">
-          {/* <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
-            <TfiMenuAlt
-              className="xl:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-            <div className="relative w-24 h-14 sm:h-16 sm:w-20 md:h-20 md:w-24 lg:h-24 lg:w-28 shadow-lg shadow-one">
-              <Image
-                loading="lazy"
-                src={'https://i.imgur.com/nfDVITC.png'}
-                layout="fill"
-                objectFit="cover"
-                alt="photo"
-              />
-            </div>
-            <div className="hidden xl:block">
-              <SideBarMenu setIsOpen={setIsOpen} />
-            </div>
-            <SearchBar />
-          </div> */}
           <CategoriesSlides />
 
           <div className={'p-4'}>
@@ -109,7 +86,7 @@ export default function HomePage() {
               isSpacetoonOpen={isSpacetoonOpen}
             />
 
-            {session?.session?.user?.role === 'unauthenticated' && (
+            {session?.session === null && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
             )}
           </div>

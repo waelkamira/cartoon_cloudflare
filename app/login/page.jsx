@@ -1,11 +1,8 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import Image from 'next/image';
 
 export default function Login() {
-  const router = useRouter();
-
   const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
@@ -19,50 +16,6 @@ export default function Login() {
       if (error) {
         console.error('Error logging in:', error.message);
         return;
-      }
-
-      // انتظر حتى يتم تسجيل المستخدم وإحضار الجلسة
-      const { data: sessionData, error: sessionError } =
-        await supabase.auth.getSession();
-      if (sessionError) {
-        console.error('Error fetching session:', sessionError.message);
-        return;
-      }
-
-      const user = sessionData?.session?.user;
-      console.log('user **********************************************', user);
-
-      // تحقق إذا كانت بيانات المستخدم موجودة
-      if (user) {
-        console.log(
-          'user **********************************************',
-          user
-        );
-
-        // أرسل طلبًا إلى api/auth
-        const response = await fetch('/api/auth', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            email: user.email,
-            name: user.user_metadata.full_name,
-            avatar: user.user_metadata.avatar_url,
-          }),
-        });
-
-        if (!response.ok) {
-          const errorResponse = await response.json();
-          console.error('Error sending user data:', errorResponse.message);
-          return;
-        }
-
-        console.log('User data sent successfully to /api/auth');
-
-        // إعادة توجيه المستخدم إلى الصفحة الرئيسية
-        router.push('/');
       }
     } catch (error) {
       console.error('Unexpected error during login:', error);

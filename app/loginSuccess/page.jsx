@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import Image from 'next/image';
 import Link from 'next/link';
 export default function LoginSuccess() {
   useEffect(() => {

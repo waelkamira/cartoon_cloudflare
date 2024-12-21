@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  runtime: 'edge',
+  // runtime: 'edge',
 
-  experimental: {
-    appDir: true,
-  },
+  // experimental: {
+  //   appDir: true,
+  // },
   typescript: {
     ignoreBuildErrors: true, // تجاهل أخطاء TypeScript في وقت البناء
   },
@@ -20,17 +20,17 @@ const nextConfig = {
     ],
   },
 
-  webpack: (config) => {
-    config.resolve.fallback = {
-      crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify'),
-      http: require.resolve('http-browserify'),
-      https: require.resolve('https-browserify'),
-      querystring: require.resolve('querystring'), // polyfill لـ querystring
-      buffer: require.resolve('buffer'), // polyfill لـ buffer إذا كان ضروريًا
-    };
-    return config;
-  },
+  // webpack: (config) => {
+  //   config.resolve.fallback = {
+  //     crypto: require.resolve('crypto-browserify'),
+  //     stream: require.resolve('stream-browserify'),
+  //     http: require.resolve('http-browserify'),
+  //     https: require.resolve('https-browserify'),
+  //     querystring: require.resolve('querystring'), // polyfill لـ querystring
+  //     buffer: require.resolve('buffer'), // polyfill لـ buffer إذا كان ضروريًا
+  //   };
+  //   return config;
+  // },
 };
 
 // استدعاء setupDevPlatform في بيئة التطوير فقط

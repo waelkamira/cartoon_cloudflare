@@ -5,12 +5,17 @@ import Image from 'next/image';
 export default function Login() {
   const handleGoogleLogin = async () => {
     try {
+      const redirectUrl =
+        process.env.NEXT_PUBLIC_REDIRECT_URL ||
+        'http://localhost:3000/loginSuccess';
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `/loginSuccess`,
+          redirectTo: redirectUrl,
         },
       });
+
       console.log('data **********************************************', data);
 
       if (error) {
@@ -33,7 +38,7 @@ export default function Login() {
           <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
             تسجيل الدخول عن طريق جوجل
           </h1>
-          <div className="relative h-8 w-8 ">
+          <div className="relative h-8 w-8">
             <Image
               loading="lazy"
               src={'https://i.imgur.com/Z4ts3yl.png'}

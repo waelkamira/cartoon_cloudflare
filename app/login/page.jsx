@@ -5,7 +5,7 @@ import Image from 'next/image';
 export default function Login() {
   const handleGoogleLogin = async () => {
     try {
-      const redirectUrl = process.env.NEXT_PUBLIC_REDIRECT_URL;
+      const redirectUrl = 'https://cartoonz.top/loginSuccess';
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
